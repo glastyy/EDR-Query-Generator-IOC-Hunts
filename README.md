@@ -71,4 +71,3 @@ tgt.file.sha256 in ("2dd1e4249e674efe23712fddeb5ec5bf4d86430a9cbdbe732c1baa6df1c
 ## Notes
 - Ensure you have the necessary permissions to access the data you are querying.
 - Modify the script as needed to fit your specific security needs or environments.
-```
