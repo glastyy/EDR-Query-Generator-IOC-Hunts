@@ -39,11 +39,11 @@ where SHA1 has_any (Hash1) or InitiatingProcessSHA1 has_any(Hash1)
 
 let Hash256=dynamic(["2dd1e4249e674efe23712fddeb5ec5bf4d86430a9cbdbe732c1baa6df1cd95b8"]);
 find in (DeviceProcessEvents, DeviceNetworkEvents, DeviceFileEvents, DeviceRegistryEvents, DeviceLogonEvents, DeviceImageLoadEvents, DeviceEvents)
-| where SHA256 has_any (Hash256) or InitiatingProcessSHA256 has_any(Hash256)
+where SHA256 has_any (Hash256) or InitiatingProcessSHA256 has_any(Hash256)
 
 let HashMD5=dynamic(["b106e2a8e2537327e2dd7896a3b9b70457efca19"]);
 find in (DeviceProcessEvents, DeviceNetworkEvents, DeviceFileEvents, DeviceRegistryEvents, DeviceLogonEvents, DeviceImageLoadEvents, DeviceEvents)
-| where MD5 has_any (HashMD5) or InitiatingProcessMD5 has_any(HashMD5)
+where MD5 has_any (HashMD5) or InitiatingProcessMD5 has_any(HashMD5)
 
 DeviceNetworkEvents
 | where RemoteUrl has_any ("kmsupdateservice.com.br")
@@ -54,7 +54,8 @@ DeviceNetworkEvents
 | summarize count() by RemoteUrl, InitiatingProcessFileName, DeviceName
 
 let IPAddressIOCs=dynamic(["149.104.28.67"]);
-DeviceNetworkEvents | where RemoteIP has_any (IPAddressIOCs)
+find in (DeviceProcessEvents, DeviceNetworkEvents, DeviceFileEvents, DeviceRegistryEvents, DeviceLogonEvents, DeviceImageLoadEvents, DeviceEvents)
+where RemoteIP has_any (IPAddressIOCs)
 | summarize count() by InitiatingProcessFileName
 ```
 
