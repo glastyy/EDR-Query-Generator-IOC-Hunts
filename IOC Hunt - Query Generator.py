@@ -20,13 +20,13 @@ all_indicators = []  # To store all indicators in a single column
 
 # Function to process and defang IOCs based on column data
 def process_iocs(df):
-    # Read columns for each type of IOC
-    sha1_hashes = df['SHA1'].dropna().str.lower().tolist()
-    sha256_hashes = df['SHA256'].dropna().str.lower().tolist()
-    md5_hashes = df['MD5'].dropna().str.lower().tolist()
-    domains = df['Domain'].dropna().str.lower().tolist()
-    urls = df['URL'].dropna().str.lower().tolist()
-    ips = df['IP Address'].dropna().str.lower().tolist()
+    # Read columns for each type of IOC and handle any non-string values
+    sha1_hashes = df['SHA1'].dropna().astype(str).str.lower().tolist()
+    sha256_hashes = df['SHA256'].dropna().astype(str).str.lower().tolist()
+    md5_hashes = df['MD5'].dropna().astype(str).str.lower().tolist()
+    domains = df['Domain'].dropna().astype(str).str.lower().tolist()
+    urls = df['URL'].dropna().astype(str).str.lower().tolist()
+    ips = df['IP Address'].dropna().astype(str).str.lower().tolist()
 
     # Defang domains and IPs
     for item in domains + ips:
@@ -185,10 +185,11 @@ output_data = {
     'All Indicators': all_indicators,  # All indicators in one column
 }
 
+# Create a DataFrame to save results
 output_df = pd.DataFrame(dict([(k, pd.Series(v, dtype='object')) for k, v in output_data.items()]))
 
-# Save the results to an output Excel file
-output_file_path = 'output_queries.xlsx'  # Specify the output file path here
+# Save results to an Excel file
+output_file_path = 'output_queries.xlsx'  # Change this to your desired output file name
 output_df.to_excel(output_file_path, index=False)
 
-print(f'Output written to {output_file_path}')
+print("Query generation complete. Results saved to", output_file_path)
