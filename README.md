@@ -56,11 +56,19 @@ DeviceNetworkEvents
 let IPAddressIOCs=dynamic(["149.104.28.67"]);
 DeviceNetworkEvents | where RemoteIP has_any (IPAddressIOCs)
 | summarize count() by InitiatingProcessFileName
+```
 
 ### CrowdStrike Query
 ```plaintext
 ((RemoteAddressIP4="149.104.28.67") OR (HttpUrl="http://47.76.156.133:8888/supershell/login/") OR (DomainName="kmsupdateservice.com.br") OR (MD5HashData="b106e2a8e2537327e2dd7896a3b9b70457efca19") OR (SHA1HashData="b106e2a8e2537327e2dd7896a3b9b70457efca19") OR (SHA256HashData="2dd1e4249e674efe23712fddeb5ec5bf4d86430a9cbdbe732c1baa6df1cd95b8"))
+```
 
 ### SentinelOne Query
 ```plaintext
 tgt.file.sha256 in ("2dd1e4249e674efe23712fddeb5ec5bf4d86430a9cbdbe732c1baa6df1cd95b8") OR src.process.image.sha256 in ("2dd1e4249e674efe23712fddeb5ec5bf4d86430a9cbdbe732c1baa6df1cd95b8") OR tgt.file.sha1 in ("b106e2a8e2537327e2dd7896a3b9b70457efca19") OR src.process.image.sha1 in ("b106e2a8e2537327e2dd7896a3b9b70457efca19") OR tgt.file.md5 in ("b106e2a8e2537327e2dd7896a3b9b70457efca19") OR src.process.image.md5 in ("b106e2a8e2537327e2dd7896a3b9b70457efca19") OR src.ip.address contains ("149.104.28.67") OR dst.ip.address contains ("149.104.28.67") OR event.dns.request in ("kmsupdateservice.com.br") OR url.address in ("kmsupdateservice.com.br") OR event.dns.request in ("http://47.76.156.133:8888/supershell/login/") OR url.address in ("http://47.76.156.133:8888/supershell/login/")
+```
+
+## Notes
+- Ensure you have the necessary permissions to access the data you are querying.
+- Modify the script as needed to fit your specific security needs or environments.
+```
