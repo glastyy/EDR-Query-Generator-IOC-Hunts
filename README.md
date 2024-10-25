@@ -1,4 +1,4 @@
-# IOC Query Generator
+# IOC Query Generator - EDR
 
 ## About
 This script automates the generation of queries for Microsoft Defender for Endpoint (MDE), CrowdStrike, and SentinelOne based on various Indicators of Compromise (IOCs) such as hashes, domains, URLs, and IP addresses extracted from an Excel file. It processes the IOCs, defangs them where necessary, and formats them into specific queries for each security platform.
